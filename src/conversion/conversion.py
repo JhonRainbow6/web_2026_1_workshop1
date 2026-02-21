@@ -2,19 +2,20 @@ class Conversion:
     def celsius_a_fahrenheit(self, celsius):
         """
         Convierte temperatura de Celsius a Fahrenheit.
-        
+
         Args:
             celsius (float): Temperatura en grados Celsius
-            
+
         Returns:
             float: Temperatura en grados Fahrenheit
-            
+
         Fórmula: F = (C × 9/5) + 32
-        
+
         Ejemplo:
             celsius_a_fahrenheit(0) -> 32.0
             celsius_a_fahrenheit(100) -> 212.0
         """
+        return  (celsius * 9/5) + 32
         pass
     
     def fahrenheit_a_celsius(self, fahrenheit):
@@ -33,6 +34,7 @@ class Conversion:
             fahrenheit_a_celsius(32) -> 0.0
             fahrenheit_a_celsius(212) -> 100.0
         """
+        return (fahrenheit - 32) * 5/9
         pass
     
     def metros_a_pies(self, metros):
@@ -50,6 +52,7 @@ class Conversion:
         Ejemplo:
             metros_a_pies(1) -> 3.28084
         """
+        return metros * 3.28084
         pass
     
     def pies_a_metros(self, pies):
@@ -67,6 +70,7 @@ class Conversion:
         Ejemplo:
             pies_a_metros(3.28084) -> 1.0
         """
+        return pies * 0.3048
         pass
     
     def decimal_a_binario(self, decimal):
@@ -83,6 +87,7 @@ class Conversion:
             decimal_a_binario(10) -> "1010"
             decimal_a_binario(255) -> "11111111"
         """
+        return bin(int(decimal))[2:]
         pass
     
     def binario_a_decimal(self, binario):
@@ -99,6 +104,7 @@ class Conversion:
             binario_a_decimal("1010") -> 10
             binario_a_decimal("11111111") -> 255
         """
+        return int(str(binario), 2)
         pass
     
     def decimal_a_romano(self, numero):
@@ -115,6 +121,17 @@ class Conversion:
             decimal_a_romano(9) -> "IX"
             decimal_a_romano(1994) -> "MCMXCIV"
         """
+        rom = [
+            (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
+            (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
+            (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")
+        ]
+        resultado =""
+        for valor, letra in rom:
+            while numero >= valor:
+                numero -= valor
+                resultado += letra
+        return resultado
         pass
     
     def romano_a_decimal(self, romano):
@@ -131,6 +148,17 @@ class Conversion:
             romano_a_decimal("IX") -> 9
             romano_a_decimal("MCMXCIV") -> 1994
         """
+        rom = {
+            "I": 1, "V": 5, "X": 10, "L": 50,
+            "C": 100, "D": 500, "M": 1000
+        }
+        resultado = 0
+        for i in range(len(romano)):
+            if i > 0 and rom[romano[i]] > rom[romano[i - 1]]:
+                resultado += rom[romano[i]] - 2 * rom[romano[i - 1]]
+            else:
+                resultado += rom[romano[i]]
+        return resultado
         pass
     
     def texto_a_morse(self, texto):
@@ -147,6 +175,20 @@ class Conversion:
             texto_a_morse("SOS") -> "... --- ..."
             texto_a_morse("HELLO") -> ".... . .-.. .-.. ---"
         """
+        morse_code ={
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+            'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--',
+            '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+            '9': '----.', '0': '-----'
+        }
+        resultado = []
+        for str in texto.upper():
+            if str in morse_code:
+                resultado.append(morse_code[str])
+        return ' '.join(resultado)
         pass
     
     def morse_a_texto(self, morse):
@@ -163,4 +205,23 @@ class Conversion:
             morse_a_texto("... --- ...") -> "SOS"
             morse_a_texto(".... . .-.. .-.. ---") -> "HELLO"
         """
+        morse_code ={
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+            'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--',
+            '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+            '9': '----.', '0': '-----'
+        }
+
+        texto_code = {value: key for key, value in morse_code.items()} #inversion de morse_corse
+
+        codigos = [codigo for codigo in morse.split(' ') if codigo]    #filtrado de espacios extra
+
+        resultado = []
+        for codigo in codigos:
+            if codigo in texto_code:
+                resultado.append(texto_code[codigo])
+        return "".join(resultado)
         pass
