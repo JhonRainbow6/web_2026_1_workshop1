@@ -1,3 +1,6 @@
+from inspect import stack
+
+
 class Data:
     """
     Clase con métodos para operaciones y manipulaciones de estructuras de datos.
@@ -14,6 +17,10 @@ class Data:
         Returns:
             list: Lista con los elementos en orden inverso
         """
+        lista_invertida = []
+        for i in range(len(lista) - 1, -1, -1):
+            lista_invertida.append(lista[i])
+        return lista_invertida
         pass
     
     def buscar_elemento(self, lista, elemento):
@@ -28,6 +35,10 @@ class Data:
         Returns:
             int: Índice del elemento o -1 si no se encuentra
         """
+        for i in range(len(lista)):
+            if lista[i] == elemento:
+                return i
+        return -1
         pass
     
     def eliminar_duplicados(self, lista):
@@ -41,6 +52,16 @@ class Data:
         Returns:
             list: Lista sin elementos duplicados
         """
+        lista_sin_duplicados = []
+        for i in  lista:
+            existe = False
+            for existente in lista_sin_duplicados:
+                if type(i) is type(existente) and i == existente:
+                    existe = True
+                    break
+            if not existe:
+                lista_sin_duplicados.append(i)
+        return lista_sin_duplicados
         pass
     
     def merge_ordenado(self, lista1, lista2):
@@ -54,6 +75,22 @@ class Data:
         Returns:
             list: Lista combinada y ordenada
         """
+        combined_list = []
+        i, j = 0, 0
+        while i < len(lista1) and j < len(lista2):
+            if lista1[i] < lista2[j]:
+                combined_list.append(lista1[i])
+                i += 1
+            else:
+                combined_list.append(lista2[j])
+                j += 1
+        while i < len(lista1):
+            combined_list.append(lista1[i])
+            i += 1
+        while j < len(lista2):
+            combined_list.append(lista2[j])
+            j += 1
+        return combined_list
         pass
     
     def rotar_lista(self, lista, k):
@@ -67,6 +104,10 @@ class Data:
         Returns:
             list: Lista rotada
         """
+        rote_list = [0] * len(lista)
+        for i in range(len(lista)):
+            rote_list[(i + k) % len(lista)] = lista[i]
+        return rote_list
         pass
     
     def encuentra_numero_faltante(self, lista):
@@ -79,6 +120,10 @@ class Data:
         Returns:
             int: El número que falta en la secuencia
         """
+        n = len(lista) + 1
+        suma_esperada = n * (n + 1) // 2
+        suma_actual = sum(lista)
+        return suma_esperada - suma_actual
         pass
     
     def es_subconjunto(self, conjunto1, conjunto2):
@@ -92,6 +137,15 @@ class Data:
         Returns:
             bool: True si conjunto1 es subconjunto de conjunto2, False en caso contrario
         """
+        for elemento in conjunto1:
+            encontrado = False
+            for item in conjunto2:
+                if type(elemento) is type(item) and elemento == item:
+                    encontrado = True
+                    break
+            if not encontrado:
+                return False
+        return True
         pass
     
     def implementar_pila(self):
@@ -101,6 +155,7 @@ class Data:
         Returns:
             dict: Diccionario con métodos push, pop, peek y is_empty
         """
+
         pass
     
     def implementar_cola(self):
@@ -110,6 +165,7 @@ class Data:
         Returns:
             dict: Diccionario con métodos enqueue, dequeue, peek y is_empty
         """
+
         pass
     
     def matriz_transpuesta(self, matriz):
