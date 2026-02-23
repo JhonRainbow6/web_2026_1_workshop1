@@ -374,14 +374,13 @@ class Geometria:
         Args:
             num_lados (int): Número de lados del polígono
             lado (float): Longitud de cada lado
-            apotema (float): Longitud de la apotema >>>>> huh???
+            apotema (float): Longitud de la apotema
             
         Returns:
             float: Área del polígono regular
         """
-
-        return (num_lados * lado ** 2) / (4 * math.tan(math.pi / num_lados)) # huh???
-        pass
+        perimetro = num_lados * lado
+        return (perimetro * apotema) / 2
     
     def perimetro_poligono_regular(self, num_lados, lado):
         """
