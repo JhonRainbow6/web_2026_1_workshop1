@@ -155,7 +155,13 @@ class Data:
         Returns:
             dict: Diccionario con métodos push, pop, peek y is_empty
         """
-
+        self.pila = []
+        return {
+            "push": lambda x: self.pila.append(x),
+            "pop": lambda: self.pila.pop() if self.pila else None,
+            "peek": lambda: self.pila[-1] if self.pila else None,
+            "is_empty": lambda: len(self.pila) == 0
+        }
         pass
     
     def implementar_cola(self):
@@ -165,6 +171,14 @@ class Data:
         Returns:
             dict: Diccionario con métodos enqueue, dequeue, peek y is_empty
         """
+        self.cola = []
+        return {
+            "enqueue": lambda x: self.cola.append(x),
+            "dequeue": lambda: self.cola.pop(0) if self.cola else None,
+            "peek": lambda: self.cola[0] if self.cola else None,
+            "is_empty": lambda: len(self.cola) == 0
+
+        }
 
         pass
     
@@ -178,4 +192,16 @@ class Data:
         Returns:
             list: Matriz transpuesta
         """
+        if not matriz:
+            return []
+        filas = len(matriz)
+        columnas = len(matriz[0])
+        trans = []
+
+        for i in range(columnas):
+            nueva_fila = []
+            for j in range(filas):
+                nueva_fila.append(matriz[j][i])
+            trans.append(nueva_fila)
+        return trans
         pass
