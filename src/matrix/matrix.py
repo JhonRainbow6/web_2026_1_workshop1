@@ -21,6 +21,20 @@ class Matrix:
         Ejemplo:
             suma_matrices([[1, 2], [3, 4]], [[5, 6], [7, 8]]) -> [[6, 8], [10, 12]]
         """
+        if not A or not B:
+            return []
+
+        if len(A) != len(B) or len(A[0]) != len(B[0]):
+            raise ValueError("error")
+
+        result = []
+        for i in range(len(A)):
+            row = []
+            for j in range(len(A[0])):
+                row.append(A[i][j] + B[i][j])
+            result.append(row)
+
+        return result
         pass
 
     def resta_matrices(self, A, B):
@@ -40,6 +54,20 @@ class Matrix:
         Ejemplo:
             resta_matrices([[5, 6], [7, 8]], [[1, 2], [3, 4]]) -> [[4, 4], [4, 4]]
         """
+        if not A or not B:
+            return []
+
+        if len(A) != len(B) or len(A[0]) != len(B[0]):
+            raise ValueError("error")
+
+        result = []
+        for i in range(len(A)):
+            row = []
+            for j in range(len(A[0])):
+                row.append(A[i][j] - B[i][j])
+            result.append(row)
+
+        return result
         pass
 
     def multiplicar_matrices(self, A, B):
@@ -60,6 +88,25 @@ class Matrix:
         Ejemplo:
             multiplicar_matrices([[1, 2], [3, 4]], [[5, 6], [7, 8]]) -> [[19, 22], [43, 50]]
         """
+        if not A or not B:
+            return []
+
+        rows_A = len(A)
+        cols_A = len(A[0])
+        rows_B = len(B)
+        cols_B = len(B[0])
+
+        if cols_A != rows_B:
+            raise ValueError("# columna de A debe ser igual al # de filas de B")
+
+        result = [[0 for _ in range(cols_B)] for _ in range(rows_A)]
+
+        for i in range(rows_A):
+            for j in range(cols_B):
+                for k in range(cols_A):
+                    result[i][j] += A[i][k] * B[k][j]
+
+        return result
         pass
 
     def multiplicar_escalar(self, matriz, escalar):
@@ -76,6 +123,15 @@ class Matrix:
         Ejemplo:
             multiplicar_escalar([[1, 2], [3, 4]], 3) -> [[3, 6], [9, 12]]
         """
+        if not matriz:
+            return []
+
+        result = []
+        for row in matriz:
+            new_row = [element * escalar for element in row]
+            result.append(new_row)
+
+        return result
         pass
 
     def transpuesta(self, matriz):
@@ -91,6 +147,20 @@ class Matrix:
         Ejemplo:
             transpuesta([[1, 2, 3], [4, 5, 6]]) -> [[1, 4], [2, 5], [3, 6]]
         """
+        if not matriz:
+            return []
+
+        rows = len(matriz)
+        cols = len(matriz[0])
+
+        result = []
+        for j in range(cols):
+            new_row = []
+            for i in range(rows):
+                new_row.append(matriz[i][j])
+            result.append(new_row)
+
+        return result
         pass
 
     def es_cuadrada(self, matriz):
