@@ -189,7 +189,7 @@ class TestMatrix:
 
         # Test con valores generales
         M3 = [[2, -1, 0], [1, 3, -2], [0, 1, 4]]
-        assert self.matrix.determinante_3x3(M3) == 30
+        assert self.matrix.determinante_3x3(M3) == 32 # --->>> 2*(3*4 - (-2)*1) - (-1)*(1*4 - (-2)*0) + 0*(1*1 - 3*0) = 2*(12 + 2) + 1*(4) = 2*14 + 4 = 28 + 4 = 32 !=30
 
         # Test con matriz no 3x3 (debe lanzar ValueError)
         with pytest.raises(ValueError):

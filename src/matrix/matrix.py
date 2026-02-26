@@ -177,6 +177,9 @@ class Matrix:
             es_cuadrada([[1, 2], [3, 4]]) -> True
             es_cuadrada([[1, 2, 3], [4, 5, 6]]) -> False
         """
+        if not matriz:
+            return False
+        return len(matriz) == len(matriz[0])
         pass
 
     def es_simetrica(self, matriz):
@@ -194,6 +197,10 @@ class Matrix:
             es_simetrica([[1, 2, 3], [2, 5, 6], [3, 6, 9]]) -> True
             es_simetrica([[1, 2], [3, 4]]) -> False
         """
+        if not self.es_cuadrada(matriz):
+            return False
+        return matriz == self.transpuesta(matriz)
+
         pass
 
     def traza(self, matriz):
@@ -213,6 +220,9 @@ class Matrix:
             traza([[1, 2], [3, 4]]) -> 5
             traza([[1, 0, 0], [0, 5, 0], [0, 0, 9]]) -> 15
         """
+        if not self.es_cuadrada(matriz):
+            raise ValueError("error")
+        return sum(matriz[i][i] for i in range(len(matriz)))
         pass
 
     def determinante_2x2(self, matriz):
@@ -233,6 +243,11 @@ class Matrix:
             determinante_2x2([[3, 8], [4, 6]]) -> -14
             determinante_2x2([[1, 2], [3, 4]]) -> -2
         """
+        if len(matriz) != 2 or len(matriz[0]) != 2:
+            raise ValueError("error")
+        a, b = matriz[0]
+        c, d = matriz[1]
+        return a * d - b * c
         pass
 
     def determinante_3x3(self, matriz):
@@ -252,6 +267,12 @@ class Matrix:
             determinante_3x3([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) -> 0
             determinante_3x3([[1, 0, 0], [0, 2, 0], [0, 0, 3]]) -> 6
         """
+        if len(matriz) != 3 or len(matriz[0]) != 3:
+            raise ValueError("error")
+        a, b, c = matriz[0]
+        d, e, f = matriz[1]
+        g, h, i = matriz[2]
+        return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
         pass
 
     def identidad(self, n):
@@ -269,6 +290,7 @@ class Matrix:
             identidad(2) -> [[1, 0], [0, 1]]
             identidad(3) -> [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
         """
+        return [[1 if i == j else 0 for j in range(n)] for i in range(n)]
         pass
 
     def diagonal(self, matriz):
@@ -288,6 +310,9 @@ class Matrix:
             diagonal([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) -> [1, 5, 9]
             diagonal([[3, 0], [0, 7]]) -> [3, 7]
         """
+        if not self.es_cuadrada(matriz):
+            raise ValueError("error")
+        return [matriz[i][i] for i in range(len(matriz))]
         pass
 
     def es_diagonal(self, matriz):
@@ -305,6 +330,13 @@ class Matrix:
             es_diagonal([[3, 0], [0, 7]]) -> True
             es_diagonal([[1, 2], [0, 4]]) -> False
         """
+        if not self.es_cuadrada(matriz):
+            return False
+        for i in range(len(matriz)):
+            for j in range(len(matriz[0])):
+                if i != j and matriz[i][j] != 0:
+                    return False
+        return True
         pass
 
     def rotar_90(self, matriz):
@@ -321,6 +353,15 @@ class Matrix:
             rotar_90([[1, 2], [3, 4]]) -> [[3, 1], [4, 2]]
             rotar_90([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) -> [[7, 4, 1], [8, 5, 2], [9, 6, 3]]
         """
+        if not matriz:
+            return []
+        rows = len(matriz)
+        cols = len(matriz[0])
+        result = [[0 for _ in range(rows)] for _ in range(cols)]
+        for i in range(rows):
+            for j in range(cols):
+                result[j][rows - 1 - i] = matriz[i][j]
+        return result
         pass
 
     def buscar_en_matriz(self, matriz, valor):
@@ -339,4 +380,12 @@ class Matrix:
             buscar_en_matriz([[1, 2, 3], [4, 2, 6], [7, 8, 2]], 2) -> [(0, 1), (1, 1), (2, 2)]
             buscar_en_matriz([[1, 2], [3, 4]], 9) -> []
         """
+        if not matriz:
+            return []
+        posicion = []
+        for i in range(len(matriz)):
+            for j in range(len(matriz[0])):
+                if matriz[i][j] == valor:
+                    posicion.append((i, j))
+        return posicion
         pass
