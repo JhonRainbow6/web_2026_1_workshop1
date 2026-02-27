@@ -1,5 +1,4 @@
 import math
-import numpy as np
 from sqlite3.dbapi2 import paramstyle
 
 
