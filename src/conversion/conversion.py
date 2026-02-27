@@ -224,4 +224,4 @@ class Conversion:
             if codigo in texto_code:
                 resultado.append(texto_code[codigo])
         return "".join(resultado)
-        pass
+        pass #

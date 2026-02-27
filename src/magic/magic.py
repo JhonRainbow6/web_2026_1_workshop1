@@ -237,4 +237,4 @@ class Magic:
         if sum(matriz[i][n - 1 - i] for i in range(n)) != suma:
             return False
         return True
-        pass
+        pass #

@@ -120,4 +120,4 @@ class Stats:
         if not numeros:
             return 0
         return max(numeros) - min(numeros)
-        pass
+        pass #

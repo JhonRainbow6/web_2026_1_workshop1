@@ -394,4 +394,4 @@ class Geometria:
             float: Perímetro del polígono regular
         """
         return num_lados * lado
-        pass
+        pass #
